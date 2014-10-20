@@ -1,0 +1,148 @@
+<table width="883" border="0" cellpadding="20" cellspacing="0">
+  <tr>
+    <td align="left" valign="top">
+    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+      	<tr>
+        	<td>
+        		<h2>Create new power sports wishlist item<br />
+        		</h2>
+        	</td>
+        </tr>
+	      <tr>
+  	      <td>
+  	      	<%= image_tag "black_bar.png", :size => "567x13", :border => 0 %>
+  	      	<br />
+  	      	<br />
+  	      </td>
+      	</tr>
+      	<tr>
+        	<td>
+  
+        		<%= form_for(@wishlist) do |f| %>
+                  <% if @wishlist.errors.any? %>
+                      <div id="errorExplanation">
+                        <h2><%= pluralize(@wishlist.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+                        <ul>
+                          <% @wishlist.errors.full_messages.each do |message| %>
+                              <li><%= message %></li>
+                          <% end %>
+                        </ul>
+                      </div>
+                  <% end %>
+	        		<%= f.hidden_field :listingtype, :value=>'power' %>
+	        		
+	        		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  	      			<tr>
+  	            	<td width="40%">
+  	            		<table width="100%" border="0" cellspacing="2" cellpadding="2" class="formText">
+  	             			<tr>
+												<td>
+													<%= f.label 'Year Between:' %>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<%= f.text_field :min_year, :size => 10 %> and <%= f.text_field :max_year, :size => 10 %>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<%= f.label "Category:" %>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<%= f.collection_select :category, @powercategories, :category, :category, {:prompt => "-Select a Category"} %>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<%= f.label "Subcategory:" %>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<div id='powersubcategoriesdiv'>
+														<%= render :partial => 'powersubcategories_select' %>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<%= f.label "Make:" %>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<%= f.collection_select :make, @powermakes, :make, :make, {:prompt => "-Select a Make-"} %>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<%= f.label 'Price Between:' %>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<%= f.text_field :min_price, :size => 10 %> and
+													<%= f.text_field :max_price, :size => 10 %>
+												</td>
+											</tr>
+											<tr>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<td>
+													<%= image_submit_tag "create_button.jpg", :alt => "Create", :size => "69x29", :border => 0 %>
+												</td>
+											</tr>
+										</table>
+									</td>
+									<td width="60%" align="center">
+										<%= image_tag "key_exchange_big.png", :size => "404x272", :alt => "key exchange" , :border => 0 %>
+									</td>
+								</tr>
+							</table>
+							
+						<% end %>
+						
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+<script>
+    $( document ).ready(function() {
+
+        $('#wishlist_category').change(function() {
+            if ($(this).val() == '')
+            {
+                $('#wishlist_subcategory').html( $('<option>No model provided for your make</option>'));
+            }
+            else {
+                $.ajax({
+                    type: "GET",
+                    url: "/marinecategories/get_marinesubcategories?category=" + $(this).val(),
+                    success: function(data){
+                        if (data.content == 'None')  //handle the case where no state related to country selected
+                        {
+                            $('#wishlist_subcategory').empty();
+                            $('#wishlist_subcategory').append( $('<option>No Subcategory provided for your Category</option>'));
+                        }
+                        else
+                        {
+                            $('#wishlist_subcategory').empty();
+                            $('#wishlist_subcategory').append( $('<option>Select your Subcategory</option>'));
+                            jQuery.each(data,function(i, v) {
+                                $('#wishlist_subcategory').append( $('<option value="'+ data[i][1] +'">'+data[i][0] +'</option>'));
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
