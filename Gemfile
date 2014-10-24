@@ -6,7 +6,8 @@ gem 'rails', '4.1.6'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+#gem 'mysql2'
+gem 'pg'
 
 gem "authlogic"
 #gem "searchlogic"
@@ -33,7 +34,7 @@ gem 'activerecord-deprecated_finders'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
 
-  gem 'uglifier'#, '>= 1.3.0'
+  gem 'uglifier', '>= 1.3.0'
 #end
 
 gem 'jquery-rails'
