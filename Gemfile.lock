@@ -64,7 +64,6 @@ GEM
     minitest (5.4.2)
     multi_json (1.10.1)
     mysql2 (0.3.16)
-    pg (0.17.1)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
     protected_attributes (1.0.8)
@@ -137,7 +136,6 @@ DEPENDENCIES
   coffee-rails (~> 4.0.1)
   jquery-rails
   mysql2
-  pg
   protected_attributes
   rails (= 4.1.6)
   rails-observers
