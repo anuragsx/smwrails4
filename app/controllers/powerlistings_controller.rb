@@ -1,5 +1,5 @@
 class PowerlistingsController < ApplicationController
-
+  layout "application"
 	def searchpower
   	#@search = Listing.new_search(params[:search])
   	@powercategories = Powercategories.find(:all, :order => 'category ASC', :select => 'distinct category')

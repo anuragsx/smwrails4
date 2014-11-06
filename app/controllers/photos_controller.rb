@@ -49,7 +49,8 @@ class PhotosController < ApplicationController
   	@user = current_user
   	@listing = Listing.find(params[:listing_id])
     @photo = @listing.photos.new(params[:photo])
-
+  p "---------------------------------------------"
+    puts @photo.inspect
     respond_to do |format|
       if @photo.save
         flash[:notice] = 'Photo was successfully uploaded.'

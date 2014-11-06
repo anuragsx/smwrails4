@@ -1,90 +1,162 @@
-<% if flash[:notice] %>
-	<div class="notice"><%= flash[:notice] %></div>
-<% end %>
+<%if current_user%>
+<div id="content">
+<div class="page">
+<div class="rightcontent">
+  <div class="ad1"> <img src="/assets/ad1.jpg" width="300" height="125" /> </div>
+  <div class="ad2"> <img src="/assets/ad2.jpg" width="300" height="125" /> </div>
+  <div class="ad3"> <img src="/assets/ad3.jpg" width="300" height="250" /> </div>
+  <div class="ad3"> <img src="images/ad3.jpg" width="300" height="250" /> </div>
+  <div class="ad3"> <img src="images/ad3.jpg" width="300" height="250" /> </div>
+</div>
+<div class="leftcontent">
 
-<% if current_user %>
-	<table width="883" border="0" cellpadding="20" cellspacing="0">
-		<tr>
-		  <td align="left" valign="top">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				  <tr>
-				    <td>
-				    	<h2>My Wish List
-	 	      			<br />
-			   				<br />
-			    		</h2>
-			    	</td>
-			    </tr>
-			  	<tr>
-					  <td>
-					  	<table width="100%" border="0" cellpadding="0" cellspacing="0">
-					    	<tr class="messageBar">
-							    <th>Vehicle Type</th>
-							    <th>Min. Year</th>
-							    <th>Max. Year</th>
-							    <th>Auto Category</th>
-							    <th>Category</th>
-							    <th>Subcategory</th>
-							    <th>Make</th>
-							    <th>Model</th>
-							    <th>Min. Price</th>
-							    <th>Max. Price</th>
-							    <th>&nbsp;</th>
-							  </tr>
-							  
-								<% @wishlists.each do |wishlist| %>
-					
-								<tr>
-									<td style="background-image: transparent;"><%=h wishlist.listingtype %></td>
-									<td style="background-image: transparent;"><%=h wishlist.min_year %></td>
-									<td style="background-image: transparent;"><%=h wishlist.max_year %></td>
-									<td style="background-image: transparent;"><%=h wishlist.body %></td>
-									<td style="background-image: transparent;"><%=h wishlist.category %></td>
-									<td style="background-image: transparent;"><%=h wishlist.subcategory %></td>
-									<td style="background-image: transparent;"><%=h wishlist.make %></td>
-									<td style="background-image: transparent;"><%=h wishlist.model %></td>
-									<td style="background-image: transparent;"><%=h wishlist.min_price %></td>
-									<td style="background-image: transparent;"><%=h wishlist.max_price %></td>
-									<td style="background-image: transparent;" class="formText"><%= link_to 'Delete', wishlist, :confirm => 'Are you sure?', :method => :delete %></td>
-								</tr>
-					
-								<% end %>
+  <div class="lsitarea"> <img width="725" height="276" class="twocolumns p_img" src="images/mainimage.png">
 
-			    		</table>
-			    	</td>
-			  	</tr>
-			  	<tr>
-			    	<td>
-			    		<br/>
-			    	</td>
-				  </tr>
-				</table>
-				
-				<%= render :partial => "mini_create" %>
-												
-		  </td>
-		</tr>
-	</table>
+    <h1 class="headingh1">My <strong>Wishlist</strong></h1>
 
-<% else %>
+    <div class="pagination"> <span class="sort">Sort by:</span>
+      <form action="#">
+        <select>
+          <option>Select Category</option>
+        </select>
+      </form>
+      <div class="clear"></div>
+    </div>
+    <%unless @wishlists.blank?%>
+    <% @wishlists.each do |wishlist| %>
+    <div class="post">
+      <div class="leftpost">
+        <div class="middilepost">
+          <div class="inline">
+            <h2>
+              <% if wishlist.listingtype == "auto" %>
+                  <%= wishlist.min_year %> - <%= wishlist.max_year %> <%= wishlist.make %> <%= wishlist.model %>
+              <% else %>
+                  <%= wishlist.min_year %> - <%= wishlist.max_year %> <%= wishlist.category %>
+              <% end %>
+            </h2>
+            <div class="clear"></div>
+          </div>
+          <p>Price: $<%=h wishlist.min_price %> - $<%=h wishlist.max_price %></p>
+          <p>Category:  <%=h wishlist.category %></p>
+          <p>Sub Category:  <%=h wishlist.subcategory %></p>
+          <p>Body:  <%=h wishlist.body %></p>
+          <p>
+            <!--<a href="#">Modify Item &raquo;</a>-->
+            <%= link_to "Delete Wishlist Item", wishlist_path(wishlist), :confirm => 'Are you sure?', :method=>:delete, :class=>"remove"%>
+          </p>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+   <%end%>
+  <%end%>
+    <div class="post">
+      <div class="">
+        <div class="middilepost">
+          <div class="inline">
 
-	<table width="883" border="0" cellpadding="10" cellspacing="0">
-		<tr>
-			<td align="center" valign="top">
-				<p><%= link_to "Register", new_user_path %> or <%= link_to "Log in", login_url %> to set up a "Wishlist".
-					<br />A Wishlist will work for you while you're away - enabling our team to help you find a Perfect Swap.<br/>
-				</p>
-			</td>
-		</tr>
-		<tr align="center">
-			<td>
-				<a href="javascript:gotoshow()">
-					<img src="../images/banners/MoparNation.jpg" name="slide" border=0 style="filter:blendTrans(duration=3)" width=382 height=60>
-				</a>
-				<a href="http://www.dpbolvw.net/click-3732474-10737219" target="_blank">
-	<img src="http://www.tqlkg.com/image-3732474-10737219" width="468" height="60" alt="Save 10% on Auto Parts at Automotive Concepts!" border="0"/></a>
-			</td>
-		</tr>
-	</table>
+            <div class="clear"></div>
+          </div>
 
-<% end %>
+          <span></span>.</div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <div class="clear"></div>
+
+
+
+</div>
+<div class="clear"></div>
+<div class="smalllightbx" style="margin-left: 314px;"> <span>Create Another</span><span class="boldclass"> Wishlist Item:</span>
+  <!--lightbox-->
+  <style type="text/css">
+
+      .overlay {
+          background: url("/assets/magnifier.png") no-repeat scroll center 105px transparent;
+          height: 199px;
+          position: absolute;
+          width: 351px;
+          z-ind/ex: 9999;
+          opacity:0;
+      }
+
+      .overlay h5 {
+          display: block;
+          font-family: Oswald;
+          font-size: 49px;
+          font-weight: bold;
+          line-height: 125px;
+          margin: 0;
+          text-align: center;
+      }
+      .overlay:hover
+      {
+          opacity:1;
+          background-color:rgba(0,0,0,.5)
+      }
+  </style>
+
+
+
+  <div class="lightbox">
+    <a href="wishlists/new_auto" rel="group" class="fancybox">
+    <div class="overlay">
+      <h5>AUTOMOTIVE</h5>
+    </div>
+    <img src="/assets/lightbox1.jpg" alt="" />
+    </a>
+    <a href="wishlists/new_marine" rel="group" class="fancybox">
+    <div class="overlay">
+      <h5>MARINE</h5>
+    </div>
+    <img src="/assets/lightbox2.jpg" alt="" />
+    </a>
+    <a href="wishlists/new_moto" rel="group" class="fancybox">
+    <div class="overlay">
+      <h5>MOTORCYCLE</h5>
+    </div>
+    <img src="/assets/lightbox3.jpg" alt="" />
+    </a>
+    <a href="wishlists/new_power" rel="group" class="fancybox">
+    <div class="overlay">
+      <h5>POWER SPORTS</h5>
+    </div>
+    <img src="/assets/lightbox4.jpg" alt="" />
+  </a>
+  </div>
+
+  <!--lightbox-->
+</div>
+</div>
+<div class="clear"></div>
+</div>
+
+<%else%>
+    <div id="content">
+      <div class="page">
+        <div class="rightcontent">
+          <div class="ad1"> <img src="/assets/ad1.jpg" width="300" height="125" /> </div>
+          <div class="ad2"> <img src="/assets/ad2.jpg" width="300" height="125" /> </div>
+          <div class="ad3"> <img src="/assets/ad3.jpg" width="300" height="250" /> </div>
+          <div class="ad3"> <img src="images/ad3.jpg" width="300" height="250" /> </div>
+          <div class="ad3"> <img src="images/ad3.jpg" width="300" height="250" /> </div>
+        </div>
+        <div class="leftcontent">
+          <div class="lsitarea">
+            <h1 class="headingh1">My <strong>Wishlist</strong></h1>
+              <div class="clear"></div>
+            </div>
+          <!--<div class="post">-->
+            <p><%= link_to "Register", new_user_path, {:style=>'color:#649D4A'} %> or <%= link_to "Log in", login_url, {:style=>'color:#649D4A'} %> to set up a "Wishlist".</p>
+            <p>A Wishlist will work for you while you're away - enabling our team to help you find a Perfect Swap.</p>
+          <!--</div>-->
+          <div class="clear"></div>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+<%end%>
+

@@ -101,13 +101,12 @@ class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.xml
   def index
-  	@user = current_user
-		@listings = @user.listings
-		@listings_count = @user.listings.count
-
-    respond_to do |format|
-      format.html {}
-      format.xml { render :xml => @listings }
+    if current_user
+      @user = current_user
+      @listings = @user.listings
+      @listings_count = @user.listings.count
+    else
+      redirect_to new_user_path
     end
   end
 
@@ -155,12 +154,12 @@ class ListingsController < ApplicationController
   def edit
   	@user = current_user
     @listing = Listing.find(params[:id])
-
+    #@listing = current_user.listings.where("id = ?", params[:id]) #TODO
   	#Stop other users from editing listings that don't belong to them!
   	if @user
-			if @user.id != @listing.user_id
-				redirect_to @listing
-			else
+			#if @user.id != @listing.user
+				#redirect_to @listing
+			#else
 				#Current user logged in is editing his own listing
 				if @listing.listingtype == "auto"
 					@automakes = Automodels.find(:all, :order => 'make ASC', :select => 'distinct make')
@@ -181,7 +180,7 @@ class ListingsController < ApplicationController
 				
 				@photo = @listing.photos.new(params[:photo])
 				@photo_count = @listing.photos.count
-			end
+			#end
 		else
 			redirect_to @listing
 		end
@@ -241,4 +240,11 @@ class ListingsController < ApplicationController
   #  
 	#	render :partial => "recent"
   #end
+
+  private
+
+  def listing_params
+    params.require(:listing).permit(:listingtype, :expired_at, :year, :mileage, :make, :vin, :model, :price, :body, :desc, :exterior_color,
+                                    :interior_color, :doors, :engine, :transmission, :drive, :fuel, :category, :subcategory, :length, :hull)
+  end
 end

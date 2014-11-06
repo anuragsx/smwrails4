@@ -1,5 +1,5 @@
 class MarinelistingsController < ApplicationController
-
+  layout "application"
 	def searchmarine
   	#@search = Listing.new_search(params[:search])
   	@marinecategories = Marinecategories.find(:all, :order => 'category ASC', :select => 'distinct category')

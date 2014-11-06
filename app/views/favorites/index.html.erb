@@ -1,3 +1,116 @@
+<%if current_user%>
+    <div id="content">
+      <div class="page">
+        <div class="rightcontent">
+          <div class="ad1"> <img src="/assets/ad1.jpg" width="300" height="125" /> </div>
+          <div class="ad2"> <img src="/assets/ad2.jpg" width="300" height="125" /> </div>
+          <div class="ad3"> <img src="/assets/ad3.jpg" width="300" height="250" /> </div>
+          <div class="ad3"> <img src="images/ad3.jpg" width="300" height="250" /> </div>
+          <div class="ad3"> <img src="images/ad3.jpg" width="300" height="250" /> </div>
+        </div>
+        <div class="leftcontent">
+
+          <div class="lsitarea"> <img width="725" height="276" class="twocolumns p_img" src="images/mainimage.png">
+
+            <h1 class="headingh1">My <strong>Favorites</strong></h1>
+
+            <div class="pagination"> <span class="sort">Sort by:</span>
+              <form action="#">
+                <select>
+                  <option>Select Category</option>
+                </select>
+              </form>
+              <div class="clear"></div>
+            </div>
+            <%unless @favorites.blank?%>
+                <%  @favorites.each do |fav| %>
+                    <div class="post">
+                      <div class="leftpost">
+                        <div class="middilepost">
+                          <div class="inline">
+                            <h2>
+                              <% if fav.listing.listingtype == "auto" %>
+                                  <%= fav.listing.min_year %> - <%= fav.listing.max_year %> <%= fav.listing.make %> <%= fav.listing.model %>
+                              <% else %>
+                                  <%= fav.listing.min_year %> - <%= fav.listing.max_year %> <%= fav.listing.category %>
+                              <% end %>
+                            </h2>
+                            <div class="clear"></div>
+                          </div>
+                          <p>Transmission: <%=h fav.listing.transmission %> - <%=h fav.listing.max_price %></p>
+                          <p>Mileage:  <%=h fav.listing.mileage %></p>
+                          <p>Price:  <%=h fav.listing.price %></p>
+                          <p>Owner Name:  <%=h fav.listing.owner.username %></p>
+                          <p>
+                            <!--<a href="#">Modify Item &raquo;</a>-->
+                            <%= link_to "Delete Wishlist Item",fav, :confirm => 'Are you sure?', :method=>:delete, :class=>"remove"%>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="clear"></div>
+                    </div>
+                <%end%>
+            <%end%>
+            <div class="post">
+              <div class="">
+                <div class="middilepost">
+                  <div class="inline">
+
+                    <div class="clear"></div>
+                  </div>
+
+                  <span></span>.</div>
+              </div>
+              <div class="clear"></div>
+            </div>
+          </div>
+          <div class="clear"></div>
+
+
+
+        </div>
+        <div class="clear"></div>
+    </div>
+
+<%else%>
+    <div id="content">
+      <div class="page">
+        <div class="rightcontent">
+          <div class="ad1"> <img src="/assets/ad1.jpg" width="300" height="125" /> </div>
+          <div class="ad2"> <img src="/assets/ad2.jpg" width="300" height="125" /> </div>
+          <div class="ad3"> <img src="/assets/ad3.jpg" width="300" height="250" /> </div>
+          <div class="ad3"> <img src="images/ad3.jpg" width="300" height="250" /> </div>
+          <div class="ad3"> <img src="images/ad3.jpg" width="300" height="250" /> </div>
+        </div>
+        <div class="leftcontent">
+          <div class="lsitarea">
+            <h1 class="headingh1">My <strong>Wishlist</strong></h1>
+            <div class="clear"></div>
+          </div>
+          <!--<div class="post">-->
+          <p><%= link_to "Register", new_user_path, {:style=>'color:#649D4A'} %> or <%= link_to "Log in", login_url, {:style=>'color:#649D4A'} %> to set up a "Wishlist".</p>
+          <p>A Wishlist will work for you while you're away - enabling our team to help you find a Perfect Swap.</p>
+          <!--</div>-->
+          <div class="clear"></div>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+<%end%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <% if flash[:notice] %>
 	<div class="notice"><%= flash[:notice] %></div>
 <% end %>
@@ -31,7 +144,8 @@
 					&nbsp;Photos<br/>
 					<%= link_to image_tag("more_photos.png", :alt => "more photos", :size => "74x10", :border => "0"), favorite %>
 					</a>
-				<% end %>
+				<% end %>
+
 			</td>
 			<td align="center" valign="middle">
 				<%=h favorite.listing.year %>

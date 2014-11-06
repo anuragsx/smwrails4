@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-
+  layout 'application'
   def inbox
     @messages = current_user.received_messages.all
 

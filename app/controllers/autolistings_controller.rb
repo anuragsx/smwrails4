@@ -1,5 +1,7 @@
 class AutolistingsController < ApplicationController
 
+  layout "application"
+
 	def searchautos
   	@automakes = Automodels.find(:all, :order => 'make ASC', :select => 'distinct make')
   	@automodels = Automodels.find(:all, :order => 'model ASC', :select => 'distinct model')

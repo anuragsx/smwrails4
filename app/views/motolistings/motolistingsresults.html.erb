@@ -1,242 +1,157 @@
-<table width="100%" border="0" cellspacing="2" cellpadding="0">
-	<tr>
-		<td valign="top">
-			 <%= render :partial => "basicsearchmotos" %>
-		</td>
-	</tr>
-	<tr>
-		<td rowspan="3" align="left" valign="top">
-			<table border="0" cellpadding="2" cellspacing="0">
-				<tr>
-					<td align="right" valign="top">
-						<%= link_to image_tag("SCP-Banner-Static.jpg", :border => 0), "http://www.southerncarparts.com", :popup => true %>
-					</td>
-					<td width="25%" align="right" valign="top" style="color: # color: #2e61c9">
-						<p>
-							<span>Listings per page</span>
-							<%#= per_page_select %>
-							<%# if @search.page_count > 1 %>
-								<div>
-									<%#= page_links %>
-								</div>
-							<%# end %>
-						</p>
-					</td>
-				</tr>
-				<tr>
-					<% if current_user %>
-						<td colspan="2">
-							<%= pluralize(@perfectresults_count, "Perfect Match") %> found.
-						</td>
-					<% end %>
-				</tr>
-				
-				<% if current_user %>	
-					<% if @perfectresults_count > 0 %>
-				
-						<tr>
-							<td colspan="2">
-								<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#1b1818" style="background-color: #b3b3b3;">
-									<tr>
-										<th height="25" align="center" bgcolor="#1b1818"></th>
-										<th height="25" align="center" bgcolor="#1b1818" class="order_by">Year<%#= order_by_link :year %></th>
-										<th height="25" align="center" bgcolor="#1b1818" class="order_by">Category<%#= order_by_link :category %></th>
-										<th height="25" align="center" bgcolor="#1b1818" class="order_by">Make<%#= order_by_link :make %></th>
-										<th height="25" align="center" bgcolor="#1b1818" class="order_by">Mileage<%#= order_by_link :mileage %></th>
-										<th height="25" align="center" bgcolor="#1b1818" class="order_by">Price<%#= order_by_link :price %></th>
-										<th height="25" align="center" bgcolor="#1b1818" class="order_by">Location</th>
-										<th height="25" align="center" bgcolor="#1b1818" class="order_by">Trade For</th>
-									</tr>
+<div id="content">
+  <div class="page">
+    <div class="rightcontent">
+      <div class="contact"> <span>Find Your</span><span class="whip"> Whip</span>
+        <div class="checkbox">
+          <form action="#">
+            <div class="question">
+              <label class="question">01. What?</label>
+              <div class="clear"></div>
+              <div class="check">
+                <input type="radio" name="autos"/>
+                <label>Autos</label>
+              </div>
+              <div class="check">
+                <input type="radio" name="autos"/>
+                <label>Marine</label>
+              </div>
+              <div class="check">
+                <input type="radio" name="autos"/>
+                <label>Motorcycles</label>
+              </div>
+              <div class="check">
+                <input type="radio" name="autos"/>
+                <label>Power Sports</label>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="question">
+              <label class="question">02. Category</label>
+              <div class="select selectParent">
+                <select>
+                  <option>Select a category</option>
+                  <option>category1</option>
+                  <option>category2</option>
+                  <option>category3</option>
+                </select>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="question">
+              <label class="question">03. Make and Model</label>
+              <div class="select">
+                <select class="leftselect">
+                  <option>Select a Make</option>
+                  <option>category1</option>
+                  <option>category2</option>
+                  <option>category3</option>
+                </select>
+                <select class="rightselect">
+                  <option>Select a Model</option>
+                  <option>category1</option>
+                  <option>category2</option>
+                  <option>category3</option>
+                </select>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="question">
+              <label class="question">04. State</label>
+              <div class="select">
+                <select>
+                  <option>Select a State</option>
+                  <option>category1</option>
+                  <option>category2</option>
+                  <option>category3</option>
+                </select>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <a href="#" class="advance">Advance Search</a>
+            <input type="submit" class="submit" value="Search" />
+          </form>
+        </div>
+      </div>
+      <div class="ad1"> <img src="/assets/ad1.jpg" width="300" height="125" /> </div>
+      <div class="ad2"> <img src="/assets/ad2.jpg" width="300" height="125" /> </div>
+      <div class="ad3"> <img src="/assets/ad3.jpg" width="300" height="250" /> </div>
+    </div>
+    <div class="leftcontent">
+      <div class="lsitarea"> <img class="p_img" src="/assets/listingpageimage.png" width="725" height="276" />
+        <div class="pagination">
+          <div class="paging">
+            <span class="font">Page 01 of 06</span> <img width="171" height="24" src="/assets/pagination.png">
+          </div>
 
-									<h3>Perfect Matches found:</h3>
-									<% @perfectresults.each do |listing| %>
-									<tr>
-										<td align="center" valign="middle">
-											<%# listing.photos.all(:limit => 1).each do |photo| %>
-												<%#= link_to image_tag(smallphoto_url(photo, :jpg), :alt => photo.name, :border => 0), listing %><br/>
-											<%# end %>
-											<%# if listing.photos.all.count == 0 %>
-												<%#= link_to image_tag("no-photo-small.jpg", :alt => "No Photo Available", :border => 0), listing %><br/>
-											<%# end %>
-											<%#=h pluralize(listing.photos.all.count, "photo") %>
-									
-											<%# if listing.photos.all.count > 1 %>
-												<br/>
-												<%#= link_to image_tag("more_photos.png", :alt => "more photos", :size => "74x10", :border => "0"), listing %>
-											<%# end %>
-										</td>
-										<td align="center" valign="middle">
-											<%=h listing.year %>
-										</td>
-										<td align="center" valign="middle">
-											<%=h listing.category %>
-										</td>
-										<td align="center" valign="middle">
-											<%=h listing.make %>
-										</td>
-										<td align="center" valign="middle">
-											<%=h listing.mileage %>
-										</td>
-										<td align="center" valign="middle">
-											<%=h number_to_currency(listing.price, :precision => 0) %>
-										</td>
-										<td align="center" valign="middle">
-											<% if listing.owner.city && listing.owner.state %>
-												<%=h listing.owner.city %>, <%=h listing.owner.state %>
-											<% end %>
-										</td>
-										<td align="center" valign="middle">
-											<!--<%=h listing.owner.username %>-->
-											<% listing.owner.wishlists.find(:all).each do |wishlist| %>
-												*<%= wishlist.min_year %>-<%= wishlist.max_year %> <%= wishlist.body %> <%= wishlist.category %> <%= wishlist.subcategory %> <%= wishlist.make %> <%= wishlist.model %> <%=  number_to_currency(wishlist.min_price, :precision => 0) %>-<%=  number_to_currency(wishlist.max_price, :precision => 0) %><br />
-											<% end %>	
-										</td>
-									</tr>
-							
-									<% end %>
-							
-								</table><br />
-								<p>&nbsp;</p>
-							</td>
-						</tr>
-					<% end %>
-				<% end %>
-				
-				<tr>
-					<td colspan="2">
-						<% if current_user %>
-							<%= pluralize(@listings_count, "Unmatched listing") %> found.
-						<% else %>
-							<%= pluralize(@listings_count, "listing") %> found.
-						<% end %>
-					</td>
-				</tr>
-				
-				<% if @listings_count > 0 %>
-				
-				<tr>
-					<td colspan="2">
-						<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#1b1818" style="background-color: #b3b3b3;">
-							<tr>
-								<th height="25" align="center" bgcolor="#1b1818"></th>
-								<th height="25" align="center" bgcolor="#1b1818" class="order_by">Year<%#= order_by_link :year %></th>
-								<th height="25" align="center" bgcolor="#1b1818" class="order_by">Category<%#= order_by_link :category %></th>
-								<th height="25" align="center" bgcolor="#1b1818" class="order_by">Make<%#= order_by_link :make %></th>
-								<th height="25" align="center" bgcolor="#1b1818" class="order_by">Mileage<%#= order_by_link :mileage %></th>
-								<th height="25" align="center" bgcolor="#1b1818" class="order_by">Price<%#= order_by_link :price %></th>
-								<th height="25" align="center" bgcolor="#1b1818" class="order_by">Location</th>
-								<th height="25" align="center" bgcolor="#1b1818" class="order_by">Trade For</th>
-							</tr>
-							
-							<% if current_user %>
-								<h3>The following vehicles match your search request, but are not a perfect match for what you own. Please message the owner to see if your vehicle may be of interest to him/her.</h3>
-							<% end %>
-							<% @listings.each do |listing| %>
-							<tr>
-								<td align="center" valign="middle">
-									<%# listing.photos.all(:limit => 1).each do |photo| %>
-										<%#= link_to image_tag(smallphoto_url(photo, :jpg), :alt => photo.name, :border => 0), listing %><br/>
-									<%# end %>
-									<%# if listing.photos.all.count == 0 %>
-										<%#= link_to image_tag("no-photo-small.jpg", :alt => "No Photo Available", :border => 0), listing %><br/>
-									<%# end %>
-									<%#=h pluralize(listing.photos.all.count, "photo") %>
-									
-									<%# if listing.photos.all.count > 1 %>
-										<br/>
-										<%#= link_to image_tag("more_photos.png", :alt => "more photos", :size => "74x10", :border => "0"), listing %>
-									<%# end %>
-								</td>
-								<td align="center" valign="middle">
-									<%=h listing.year %>
-								</td>
-								<td align="center" valign="middle">
-									<%=h listing.category %>
-								</td>
-								<td align="center" valign="middle">
-									<%=h listing.make %>
-								</td>
-								<td align="center" valign="middle">
-									<%=h listing.mileage %>
-								</td>
-								<td align="center" valign="middle">
-									<%=h number_to_currency(listing.price, :precision => 0) %>
-								</td>
-								<td align="center" valign="middle">
-									<% if listing.owner.city && listing.owner.state %>
-										<%=h listing.owner.city %>, <%=h listing.owner.state %>
-									<% end %>
-								</td>
-								<td align="center" valign="middle">
-									<!--<%=h listing.owner.username %>-->
-									<% listing.owner.wishlists.find(:all).each do |wishlist| %>
-										*<%= wishlist.min_year %>-<%= wishlist.max_year %> <%= wishlist.body %> <%= wishlist.category %> <%= wishlist.subcategory %> <%= wishlist.make %> <%= wishlist.model %> <%=  number_to_currency(wishlist.min_price, :precision => 0) %>-<%=  number_to_currency(wishlist.max_price, :precision => 0) %><br />
-									<% end %>	
-								</td>
-							</tr>
-							
-							<% end %>
-							
-						</table>
 
-					</td>
-				</tr>
-				<tr>
-					<td width="50%" align="right" valign="top" style="color: # color: #2e61c9">
-						<p>
-							<%# if @search.page_count > 1 %>
-								<div style="color: #2e61c9">
-									<%#= page_links %>
-								</div>
-							<%# end %>
-						</p>
-					</td>
-					<td align="right">
-						<a href="#">Back to Top of Page</a>
-					</td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-				</tr>
-				<% end %>
-			</table>
-			<table width="100%">
-				<tr>
-					<td width="33%" align="center">
-						<%#= form_for @search, :url => {:controller => :autolistings, :action => "autolistingsresults"} do |f| %>
-							<%#= f.hidden_field :order_by, :value => "created_at" %>
-							<%#= f.hidden_field :order_as, :value => "DESC" %>
-							<%# f.fields_for @search.conditions do |listings| %>
-								<%#= listings.hidden_field :listingtype_is, :value => "auto" %>
-								<%#= f.submit "Browse Automobiles", :class => "browseLinkFormSubmit" %>
-							<%# end %>
-						<%# end %>
-                      <%= link_to "Browse Automobiles", autolistingsresults_autolistings_path(:listing_type => 'auto'), :style => "font-weight: bold; color: #823416;" %>
-					</td>
-					<td width="33%" align="center">
-						<%#= form_for @search, :url => {:controller => :marinelistings, :action => "marinelistingsresults"} do |f| %>
-							<%#= f.hidden_field :order_by, :value => "created_at" %>
-							<%#= f.hidden_field :order_as, :value => "DESC" %>
-							<%# f.fields_for @search.conditions do |listings| %>
-								<%#= listings.hidden_field :listingtype_is, :value => "marine" %>
-								<%#= f.submit "Browse Marine", :class => "browseLinkFormSubmit" %>
-							<%# end %>
-						<%# end %>
-                      <%= link_to "Browse Marine", marinelistingsresults_marinelistings_path(:listing_type => 'marine'), :style => "font-weight: bold; color: #823416;" %>
-					</td>
-					<td width="33%" align="center">
-						<%#= form_for @search, :url => {:controller => :powerlistings, :action => "powerlistingsresults"} do |f| %>
-							<%#= f.hidden_field :order_by, :value => "created_at" %>
-							<%#= f.hidden_field :order_as, :value => "DESC" %>
-							<%# f.fields_for @search.conditions do |listings| %>
-								<%#= listings.hidden_field :listingtype_is, :value => "power" %>
-								<%#= f.submit "Browse Powersports", :class => "browseLinkFormSubmit" %>
-							<%# end %>
-						<%# end %>
-                      <%= link_to "Browse Powersports", powerlistingsresults_powerlistings_path(:listing_type => 'power'), :style => "font-weight: bold; color: #823416;" %>
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-</table>
+          <div class="short_by">
+            <span class="sort font">Sort by:</span>
+            <form class="float_left" action="#">
+              <select>
+                <option>Date Added</option>
+                <option>No Availability</option>
+              </select>
+            </form>
+          </div>
+          <div class="list_map">
+            <span class="sort">List</span><img src="/assets/list.png" class="list" width="42" height="17" /> <span class="sort">Map</span>
+          </div>
+
+          <div class="clear"></div>
+        </div>
+
+        <% if current_user %>
+            <% if @perfectresults_count > 0 %>
+                <% @perfectresults.each do |listing| %>
+                    <div class="post">
+                      <div class="leftpost"> <img class="pos_img" src="/assets/innersmallsliderimage2.png" width="114" height="91" />
+                        <div class="middilepost">
+                          <div class="inline">
+                            <h2><%=h listing.model %></h2>
+
+                            <span class="mileage">Milage : <%=h listing.mileage %></span> </div>
+                          <%unless listing.owner.nil?%>
+                              <% if listing.owner.city && listing.owner.state %>
+                                  <span><%=h listing.owner.city %>, <%=h listing.owner.state %></span> <img src="/assets/bubble.png" width="13" height="15" />
+                              <%end%>
+                          <%end%>
+                          <p class="description"></p>
+                          <a href="#">View Details &raquo;</a> </div>
+                      </div>
+                      <div class="swap"> <span><sup>$</sup><%=h listing.price %></span> </div>
+                      <div class="clear"></div>
+                    </div>
+                <%end%>
+            <%end%>
+        <%end%>
+
+        <% unless  @listings.blank?%>
+            <% @listings.each do |listing| %>
+                <div class="post">
+                  <div class="leftpost"> <img class="pos_img" src="/assets/innersmallsliderimage2.png" width="114" height="91" />
+                    <div class="middilepost">
+                      <div class="inline">
+                        <h2><%=h listing.model %></h2>
+                        <span class="mileage">Milage : <%=h listing.mileage %></span> </div>
+                      <%unless listing.owner.nil?%>
+                          <% if listing.owner.city && listing.owner.state %>
+                              <span><%=h listing.owner.city %>, <%=h listing.owner.state %></span> <img src="/assets/bubble.png" width="13" height="15" />
+                          <%end%>
+                      <%end%>
+
+                      <p class="description"></p>
+                      <%= link_to "View Details", listing_path(listing)%></div>
+                  </div>
+                  <div class="swap"> <span><sup>$</sup><%=h listing.price %></span> </div>
+                  <div class="clear"></div>
+                </div>
+            <%end%>
+        <%end%>
+
+        <div class="paginationextra"> <span>Page 01 of 06</span> <img src="images/pagination.png" width="171" height="24" /> </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
